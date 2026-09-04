@@ -1,0 +1,22 @@
+# Mapa archivo por archivo
+
+- `main.dart`: inicializa configuración, Supabase, repositorios y Provider.
+- `app.dart`: MaterialApp, temas y router.
+- `app_config.dart`: decide DEMO o LIVE.
+- `app_controller.dart`: sesión, perfil, rol y preferencias.
+- `incidents_controller.dart`: estado de la colección de reportes.
+- `incident.dart`: modelo y conversión BD ↔ Dart.
+- `incident_repository.dart`: contrato CRUD.
+- `demo_incident_repository.dart`: datos en memoria.
+- `supabase_incident_repository.dart`: CRUD PostgreSQL.
+- `location_service.dart`: permisos + GPS.
+- `weather_service.dart`: HTTP + JSON + Open-Meteo.
+- `image_service.dart`: cámara/galería + Storage.
+- `preferences_service.dart`: preferencias locales.
+- `login_screen.dart`: Auth.
+- `dashboard_screen.dart`: métricas y resumen.
+- `incidents_screen.dart`: búsqueda, filtros y lista.
+- `incident_form_screen.dart`: formulario, GPS, mapa, clima, imagen y guardado.
+- `incident_detail_screen.dart`: evidencia y trazabilidad.
+- `map_screen.dart`: visión geográfica.
+- `settings_screen.dart`: preferencias y explicación del stack.
