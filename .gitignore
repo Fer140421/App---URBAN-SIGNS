@@ -27,3 +27,7 @@ android/key.properties
 
 # Generated / temporary evidence
 *.log
+
+# Gradle
+.gradle/
+android/.gradle/
