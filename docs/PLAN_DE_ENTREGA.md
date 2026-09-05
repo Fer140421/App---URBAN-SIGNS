@@ -1,3 +1,4 @@
+
 # Urban Signs: diagnóstico y plan de entrega
 
 Fecha de revisión: 5 de septiembre de 2026.
@@ -24,7 +25,7 @@ Estados: **Cumple** = existe evidencia suficiente para el aspecto indicado; **Pa
 | Nombre, propósito y contenido propios (2.5) | Parcial | README y pantallas identifican Urban Signs y el problema de cotizaciones/pedidos | Actualizar manuales heredados y descripción del paquete. El identificador técnico `georescue_360` no es por sí solo un incumplimiento. |
 | Repositorio con código e historial progresivo (3) | Parcial | Git local y remoto; único commit local `5c27a34 app v1`; cambios de trabajo sin commit | Registrar las próximas etapas reales con commits descriptivos y publicarlas. No inventar ni retrofechar avances. |
 | README con los 11 contenidos mínimos (4) | Cumple en contenido | `README.md` incluye nombre, objetivo, funciones, tecnologías, requisitos, instalación, estructura, build, versión, limitaciones y autor | Validar instrucciones desde una copia limpia y actualizarlo con el resultado final. Hay cambios locales todavía sin publicar. |
-| APK Release generado (5) | Pendiente | No se encontró ningún `.apk` bajo `build/` ni carpeta `APK/` en la raíz | Generar Release, conservar registro exitoso y copiar como `APK/UrbanSigns_1.0.0_release.apk`. |
+| APK Release generado (5) | Cumple | `APK/UrbanSigns_1.0.0_release.apk`, compilado LIVE, firma propia verificada; registro en `evidencias/VALIDACION_APK_RELEASE.txt` | Capturas del build pendientes en sección 6; instalación y prueba se controlan por separado. |
 | APK instalado, abierto desde su icono y probado (5) | Por verificar | No hay evidencia de instalación disponible | Instalar el APK final y recorrer el flujo sin depender de `flutter run`. |
 | Capturas obligatorias del proceso (6) | Pendiente | `evidencias/` contiene únicamente `README.md` con sugerencias del ejemplo | Crear las 11 evidencias indicadas abajo, legibles y con datos de prueba. |
 | Organización e identificación de entrega (7 y 8) | Parcial | README y carpeta de evidencias presentes | Preparar carpeta final, APK, capturas y `REPOSITORIO.txt`; ZIP si la plataforma admite un solo archivo. |
@@ -110,9 +111,9 @@ Puede comenzar con P01; el cierre depende de los resultados de la etapa 2.
 
 Depende del cierre funcional de la etapa 2.
 
-- [ ] P14. Ejecutar comprobaciones finales: `flutter pub get`, `flutter analyze`, `flutter test`; guardar evidencia legible de resultados. Cierre: comandos exitosos sobre la versión que se compilará.
-- [ ] P15. Generar `flutter build apk --release --dart-define-from-file=config/live.json`. Cierre: build exitoso y archivo `build/app/outputs/flutter-apk/app-release.apk` existente. Usar LIVE para respaldar la persistencia declarada por este proyecto; el PDF no exige Supabase específicamente.
-- [ ] P16. Copiar el APK como `APK/UrbanSigns_1.0.0_release.apk`, instalarlo, abrirlo desde el icono y repetir el flujo principal. Cierre: el mismo APK que se entregará funciona sin `flutter run`.
+- [x] P14. Dependencias resueltas, análisis sin incidencias y cuatro pruebas aprobadas antes del build; registro textual en `evidencias/VALIDACION_APK_RELEASE.txt`. Capturas pendientes en P17.
+- [x] P15. Build Release exitoso con `--dart-define-from-file=config/live.json`, DEMO desactivado y clave publishable. APK copiado a `APK/UrbanSigns_1.0.0_release.apk`; firma propia Urban Signs verificada con apksigner. Tamaño: 58784000 bytes; minSdk 24, targetSdk 36. Manifest con Internet y consulta HTTPS para WhatsApp. No acredita todavía funcionamiento en dispositivo.
+- [ ] P16. APK ya copiado como `APK/UrbanSigns_1.0.0_release.apk`. Falta instalarlo, abrirlo desde el icono y repetir el flujo principal. No había dispositivo conectado durante la generación. Cierre: el mismo APK que se entregará funciona sin `flutter run`.
 
 ### Etapa 5. Completar evidencias y entrega
 
@@ -144,7 +145,7 @@ Las capturas se recopilan durante las etapas anteriores, no se simulan al final.
 - [x] 2. El flujo principal puede demostrarse. Completado según validación manual del usuario. Capturas de demostración pendientes en el punto 7.
 - [ ] 3. El repositorio tiene commits progresivos (P11).
 - [x] 4. El README está completo y actualizado (P12). README y este registro forman parte del mismo cambio de documentación. Los manuales complementarios de P01 siguen pendientes y están identificados como material heredado en el README.
-- [ ] 5. El APK fue generado en Release (P14-P15).
+- [x] 5. El APK fue generado en Release (P14-P15), en modo LIVE y con firma propia verificada. Archivo: `APK/UrbanSigns_1.0.0_release.apk`.
 - [ ] 6. El APK fue instalado y probado (P16).
 - [ ] 7. Las capturas muestran el proceso completo (P17).
 - [ ] 8. El enlace al repositorio funciona para revisión (P13).
@@ -162,11 +163,12 @@ Incidencia de aprobación (2026-09-05): la captura mostró `LocaleDataException`
 1. Actualizar manuales e identidad documental a Urban Signs (P01). README completado (P12).
 2. Resolver los hallazgos específicos de validación numérica y recuperación ante fallos; revisar RLS y documentar pruebas/casos, sin reabrir la confirmación funcional general (P02-P04, P08-P09). Definir si DEMO sigue en el alcance (P05).
 3. Limpiar y revisar seguridad del repositorio, registrar commits reales, publicar y habilitar revisión del docente; crear `REPOSITORIO.txt` (P10-P11, P13).
-4. Ejecutar comprobaciones sobre la versión final, generar APK Release, instalarlo y abrirlo desde el icono (P14-P16).
+4. Instalar el APK Release ya generado y abrirlo desde el icono para probarlo (P16). P14-P15 completados.
 5. Reunir las 11 evidencias y preparar/verificar el paquete de entrega (P17-P19).
 
 | Fecha | Trabajo realizado | Resultado | Próximo paso |
 |---|---|---|---|
+| 2026-09-05 | Manifest revisado, consulta HTTPS agregada, firma propia local creada y APK Release LIVE generado | P14-P15 y punto 5 completados; firma verificada, configuración LIVE comprobada, Supabase Auth HTTP 200; registro textual guardado | Instalar `APK/UrbanSigns_1.0.0_release.apk` y completar punto 6; capturas de build e instalación pendientes |
 | 2026-09-05 | README completado según sección 4 del PDF: instalación desde Git, configuración, flujo, versión, build y limitaciones; validación en copia limpia | Dependencias resueltas, análisis sin incidencias y cuatro pruebas aprobadas; P12 completado. Se corrigió la declaración de clima: servicio presente, sin integración en las pantallas actuales | Publicar README y planificación; continuar con APK, evidencias y demás pendientes |
 | 2026-09-05 | Usuario amplía su confirmación: probó todas las funcionalidades y todo funciona | P06-P07 y puntos oficiales 1-2 completados según validación manual del usuario; sustituye el estado funcional parcial anterior | Continuar con los pendientes actuales de documentación, revisión técnica, Git, APK y evidencias |
 | 2026-09-05 | Usuario confirma funcionamiento de todos los CRUD en el contexto de su sesión LIVE | Crear, consultar, actualizar y eliminar cotizaciones y pedidos marcados como completados por validación manual del usuario; P06 queda parcialmente completado | Confirmar conversión, abonos y persistencia tras reiniciar; registrar dispositivo y capturas |

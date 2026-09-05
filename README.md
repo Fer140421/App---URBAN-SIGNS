@@ -14,7 +14,7 @@ Seguimiento de requisitos, estado comprobado y tareas pendientes: [Plan de entre
 - **Autor:** Daavid Fernando Camata Baspineiro
 - **Repositorio:** [App - URBAN SIGNS](https://github.com/Fer140421/App---URBAN-SIGNS)
 
-La versión del código es `1.0.0+1`, según `pubspec.yaml`. La generación e instalación del APK Release se registran por separado en el plan de entrega; esta versión del README no acredita todavía esos entregables.
+La versión del código es `1.0.0+1`, según `pubspec.yaml`. El APK Release LIVE fue generado y su firma verificada el 5 de septiembre de 2026: `APK/UrbanSigns_1.0.0_release.apk`. Su instalación y prueba en dispositivo continúan pendientes en el plan de entrega.
 
 ## Problema y objetivo
 
@@ -179,6 +179,8 @@ adb install -r APK/UrbanSigns_1.0.0_release.apk
 También se puede transferir el APK al teléfono y abrirlo para instalarlo. Si Android informa una firma incompatible con una instalación previa, revisar la firma antes de reemplazarla; desinstalar la aplicación elimina sus datos locales.
 
 La configuración Gradle usa la firma definida en `android/key.properties` cuando existe; de lo contrario utiliza la firma de depuración para el build Release. Conservar la misma firma para actualizaciones y no incluir claves ni propiedades de firma en la entrega.
+
+Para la preparación de esta entrega se creó una firma local propia en `android/app/urban-signs-release.jks`, configurada mediante `android/key.properties`. Ambos archivos están excluidos de Git. El autor debe respaldarlos juntos en un lugar privado para poder generar futuras actualizaciones con la misma firma. Una copia nueva del repositorio necesita configurar su firma antes de distribuir un APK firmado con esa identidad.
 
 ## Flujo principal de verificación
 
