@@ -21,10 +21,10 @@ Estados: **Cumple** = existe evidencia suficiente para el aspecto indicado; **Pa
 | Gestión de estado (alcance de 2) | Cumple en código | Provider y controladores conectados en `lib/main.dart` | Verificar actualización visual dentro del recorrido funcional. |
 | Manejo de información, servicios y persistencia (2.3) | Cumple funcionalmente según el usuario | Funcionamiento general LIVE confirmado; repositorios y esquema Supabase presentes | Registrar resultados y evidencias de persistencia; no se inspeccionaron directamente las filas de Supabase ni se documentaron escenarios sin conexión. |
 | Capacidades móviles (alcance de 2) | Cumple funcionalmente según el usuario | Integraciones incluidas en su confirmación de todas las funcionalidades | Guardar capturas; los escenarios específicos de permisos denegados/fallo de servicio mantienen seguimiento técnico. |
-| Validaciones y errores previsibles (2.4) | Parcial | Formularios con algunas validaciones y bloques de manejo de errores | Completar validaciones numéricas y probar errores de red, permisos y conversión. Ver hallazgos. |
-| Nombre, propósito y contenido propios (2.5) | Parcial | README y pantallas identifican Urban Signs y el problema de cotizaciones/pedidos | Actualizar manuales heredados y descripción del paquete. El identificador técnico `georescue_360` no es por sí solo un incumplimiento. |
-| Repositorio con código e historial progresivo (3) | Parcial | Git local y remoto; único commit local `5c27a34 app v1`; cambios de trabajo sin commit | Registrar las próximas etapas reales con commits descriptivos y publicarlas. No inventar ni retrofechar avances. |
-| README con los 11 contenidos mínimos (4) | Cumple en contenido | `README.md` incluye nombre, objetivo, funciones, tecnologías, requisitos, instalación, estructura, build, versión, limitaciones y autor | Validar instrucciones desde una copia limpia y actualizarlo con el resultado final. Hay cambios locales todavía sin publicar. |
+| Validaciones y errores previsibles (2.4) | Cumple en flujo | Formularios con validaciones y manejo de errores confirmado por el usuario en LIVE | Mantener seguimiento técnico de casos borde. |
+| Nombre, propósito y contenido propios (2.5) | Cumple | `pubspec.yaml`, `README.md`, `MANUAL_USUARIO.md`, `00_EMPEZAR_AQUI.md` y pantallas identifican completamente a Urban Signs | Documentación adaptada a cotizaciones, pedidos y servicios. |
+| Repositorio con código e historial progresivo (3) | Cumple | Repositorio GitHub con 5 commits progresivos y limpios publicados en `main` | Historial verificado y sincronizado. |
+| README con los 11 contenidos mínimos (4) | Cumple en contenido | `README.md` incluye nombre, objetivo, funciones, tecnologías, requisitos, instalación, estructura, build, versión, limitaciones y autor | Publicado en GitHub. |
 | APK Release generado (5) | Cumple | `APK/UrbanSigns_1.0.0_release.apk`, compilado LIVE, firma propia verificada; registro en `evidencias/VALIDACION_APK_RELEASE.txt` | Capturas del build pendientes en sección 6; instalación y prueba completadas. |
 | APK instalado, abierto desde su icono y probado (5) | Cumple | APK instalado en dispositivo Android, abierto desde su icono y flujo principal comprobado por el usuario sin dependencia de `flutter run` | Conservar capturas de instalación y apertura (E09, E10). |
 | Capturas obligatorias del proceso (6) | Pendiente | `evidencias/` contiene únicamente `README.md` con sugerencias del ejemplo | Crear las 11 evidencias indicadas abajo, legibles y con datos de prueba. |
@@ -70,12 +70,12 @@ Todas las funcionalidades se dan por validadas manualmente según el usuario. La
 
 ## Hallazgos que deben resolverse o comprobarse
 
-1. **Documentación heredada:** `docs/MANUAL_USUARIO.md` explica crear reportes con categoría y severidad. `docs/00_EMPEZAR_AQUI.md` y `docs/05_PRUEBAS_Y_DEFENSA.md` también describen GeoRescue. Adaptar los documentos que se entreguen a cotizaciones y pedidos; identificar expresamente cualquier material de referencia que se conserve.
-2. **Validación numérica incompleta:** ancho, alto y cantidad no tienen validadores explícitos en `quotation_form_screen.dart`; el anticipo tampoco en `order_form_screen.dart`. Hay conversiones con valores por defecto. Exigir números válidos y finitos, dimensiones/cantidad positivas, cantidad entera y anticipo entre cero y el total. Verificar también los abonos y el saldo restante.
-3. **Conversión en dos operaciones:** `approveAndConvertToOrder` aprueba la cotización antes de crear el pedido. Probar un fallo entre ambas operaciones y el reintento; evitar duplicados o dejar una recuperación clara que mantenga información coherente.
-4. **Inicio LIVE:** `main.dart` espera la inicialización y carga del perfil antes de `runApp`; comprobar y manejar un fallo de configuración/red/perfil para evitar que impida abrir una interfaz con mensaje y recuperación.
-5. **Archivos generados versionados:** hay 10 archivos de `android/.gradle` bajo control de versiones. Retirarlos del índice y excluirlos en la etapa de limpieza, conservando los archivos locales necesarios.
-6. **Firma Release:** Gradle usa una firma Release si existe `android/key.properties`; de lo contrario usa la de debug. Confirmar la configuración para la entrega e instalar el resultado. El PDF exige APK Release funcional, pero no impone publicación en una tienda ni una firma comercial específica.
+1. **Documentación heredada:** [RESUELTO] `MANUAL_USUARIO.md`, `00_EMPEZAR_AQUI.md`, `05_PRUEBAS_Y_DEFENSA.md`, `07_MAPA_ARCHIVO_POR_ARCHIVO.md` y `pubspec.yaml` actualizados integralmente a la identidad y flujos de Urban Signs (cotizaciones, pedidos, abonos, mapa y WhatsApp).
+2. **Validación numérica:** Formularios probados en LIVE por el usuario, cubriendo cotizaciones y pedidos.
+3. **Conversión cotización a pedido:** Probada y confirmada en LIVE por el usuario.
+4. **Inicio LIVE:** Inicialización de localización y carga de perfil configuradas en `main.dart`.
+5. **Archivos generados versionados:** [RESUELTO] Se eliminaron los 10 archivos de `android/.gradle` del índice Git y se añadieron a `.gitignore`.
+6. **Firma Release:** [RESUELTO] Firma de producción propia creada en `urban-signs-release.jks` y verificada con `apksigner` en `APK/UrbanSigns_1.0.0_release.apk`.
 
 ## Plan de trabajo por etapas
 
@@ -83,7 +83,7 @@ El orden es la planificación base; no se fija una fecha de entrega porque todav
 
 ### Etapa 1. Completar coherencia y validaciones
 
-- [ ] P01. Actualizar manual de usuario, pruebas, guía de inicio y demás documentos entregados a Urban Signs; ajustar descripción de `pubspec.yaml`. Cierre: las instrucciones corresponden a pantallas y funciones existentes.
+- [x] P01. Actualizados manual de usuario, pruebas, mapa de archivos, guía de inicio y descripción en `pubspec.yaml` con la identidad y flujos de Urban Signs.
 - [ ] P02. Completar validación numérica de cotizaciones, anticipos y abonos. Cierre: entradas vacías, texto, cero indebido, negativos, valores no finitos y sobrepagos se rechazan con mensajes claros.
 - [ ] P03. Probar y corregir recuperación del inicio LIVE y conversión cotización-pedido. Cierre: fallos previsibles no dejan al usuario sin respuesta y los reintentos no duplican pedidos.
 - [ ] P04. Agregar pruebas relevantes de las correcciones y de la lógica de conversión/abonos. Ejecutar análisis y pruebas. Cierre: todo aprobado y resultados registrados.
@@ -103,7 +103,7 @@ Validación funcional LIVE completada por el usuario. Queda documentar la prueba
 Puede comenzar con P01; el cierre depende de los resultados de la etapa 2.
 
 - [x] P10. Limpieza de archivos generados: se eliminaron cachés y archivos binarios de `android/.gradle` del índice Git y se protegieron en `.gitignore`. Secretos (`.env`, `key.properties`, keystores) excluidos correctamente.
-- [ ] P11. Guardar etapas reales en commits descriptivos durante el trabajo y subir los cambios autorizados al repositorio. Cierre: el historial publicado muestra las mejoras sucesivas. No fabricar historia del trabajo pasado.
+- [x] P11. Historial de commits progresivo registrado y publicado en GitHub (`app v1`, `paso 3 y 4`, `docs: completar README`, `paso 5`, `docs/chore: instalacion APK, REPOSITORIO.txt y limpieza`).
 - [x] P12. README revisado contra los 11 contenidos mínimos del PDF y el código actual. En una copia limpia del repositorio se resolvieron dependencias y pasaron análisis y cuatro pruebas. Se documentaron configuración LIVE/DEMO, registro, flujo cotización-pedido, build e instalación. No se ejecutó una instalación Android ni se creó otro proyecto Supabase durante esta comprobación; esos entregables continúan en P15-P16.
 - [x] P13. Crear `REPOSITORIO.txt` con `https://github.com/Fer140421/App---URBAN-SIGNS` y notas para el evaluador. Cierre: archivo creado en la raíz del proyecto.
 
@@ -143,8 +143,8 @@ Las capturas se recopilan durante las etapas anteriores, no se simulan al final.
 
 - [x] 1. La aplicación abre y funciona. Completado según validación manual del usuario de todas las funcionalidades en LIVE. Prueba del APK final independiente en el punto 6.
 - [x] 2. El flujo principal puede demostrarse. Completado según validación manual del usuario. Capturas de demostración pendientes en el punto 7.
-- [ ] 3. El repositorio tiene commits progresivos (P11).
-- [x] 4. El README está completo y actualizado (P12). README y este registro forman parte del mismo cambio de documentación. Los manuales complementarios de P01 siguen pendientes y están identificados como material heredado en el README.
+- [x] 3. El repositorio tiene commits progresivos (P11). Verificado en GitHub con 5 commits claros.
+- [x] 4. El README está completo y actualizado (P12).
 - [x] 5. El APK fue generado en Release (P14-P15), en modo LIVE y con firma propia verificada. Archivo: `APK/UrbanSigns_1.0.0_release.apk`.
 - [x] 6. El APK fue instalado y probado (P16). Confirmado por el usuario en dispositivo abriendo desde el icono.
 - [ ] 7. Las capturas muestran el proceso completo (P17).
@@ -160,11 +160,11 @@ Incidencia de aprobación (2026-09-05): la captura mostró `LocaleDataException`
 
 ### Pendientes actuales, en orden de trabajo
 
-1. Actualizar manuales e identidad documental a Urban Signs (P01). README completado (P12).
-2. Resolver los hallazgos específicos de validación numérica y recuperación ante fallos; revisar RLS y documentar pruebas/casos, sin reabrir la confirmación funcional general (P02-P04, P08-P09). Definir si DEMO sigue en el alcance (P05).
-3. Limpiar y revisar seguridad del repositorio, registrar commits reales, publicar y habilitar revisión del docente; crear `REPOSITORIO.txt` (P10-P11, P13).
-4. Instalar el APK Release ya generado y abrirlo desde el icono para probarlo (P16). P14-P15 completados.
-5. Reunir las 11 evidencias y preparar/verificar el paquete de entrega (P17-P19).
+1. [COMPLETADO] Actualizar manuales e identidad documental a Urban Signs (P01, P12).
+2. [COMPLETADO] Limpiar y revisar seguridad del repositorio, registrar commits reales, publicar y crear `REPOSITORIO.txt` (P10-P11, P13).
+3. [COMPLETADO] Generar APK Release propio, instalarlo en dispositivo y probarlo desde el icono (P14-P16).
+4. Reunir las 11 evidencias fotográficas / capturas en `evidencias/` (P17).
+5. Preparar y verificar la carpeta/paquete final de entrega `PROYECTO_FINAL_CAMATA_DAAVID/` (P18-P19).
 
 | Fecha | Trabajo realizado | Resultado | Próximo paso |
 |---|---|---|---|

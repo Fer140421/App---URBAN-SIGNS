@@ -1,6 +1,6 @@
 name: georescue_360
 publish_to: "none"
-description: Ejemplo profesional de Trabajo Final Flutter para el Diplomado UAJMS.
+description: Urban Signs - Sistema movil de gestion comercial para carteleria y gigantografias (Diplomado UAJMS).
 version: 1.0.0+1
 
 environment:

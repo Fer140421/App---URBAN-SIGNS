@@ -1,35 +1,32 @@
-# EMPEZAR AQUÍ
+# EMPEZAR AQUÍ: Urban Signs PRO
 
-## Qué es GeoRescue 360
+## Qué es Urban Signs
 
-Es un ejemplo de proyecto final avanzado. Su dominio es la gestión comunitaria de incidencias georreferenciadas.
+Es un proyecto final profesional desarrollado con Flutter para el Diplomado UAJMS (Módulo 3). Su dominio es la gestión comercial y operativa de empresas de diseño, cartelería y gigantografías.
 
-No se diseñó para que todos los estudiantes lo copien. Se diseñó para mostrar hasta dónde puede llegar una app Flutter bien integrada.
+Resuelve el desorden en la toma de medidas, cálculo de precios por metro cuadrado, conversión de cotizaciones a pedidos de producción, seguimiento de anticipos/saldos y geolocalización de instalaciones.
 
 ## Primer recorrido
 
-1. Ejecuta MODO DEMO.
-2. Entra con el botón de demostración.
-3. Observa dashboard y reportes precargados.
-4. Crea un nuevo reporte.
-5. Usa GPS o toca el mapa.
-6. Observa la consulta de clima.
-7. Adjunta una imagen.
-8. Guarda.
-9. Abre el mapa.
-10. Edita y elimina.
+1. **Iniciar sesión:** ingresar credenciales en modo LIVE (o probar en DEMO).
+2. **Dashboard:** revisar métricas comerciales (cotizaciones pendientes, pedidos activos, saldo por cobrar).
+3. **Crear Cotización:**
+   - Ingresar cliente y teléfono.
+   - Definir ancho, alto y cantidad (cálculo de área automático).
+   - Tomar o subir foto de la fachada/espacio.
+   - Capturar ubicación GPS o marcar en el mapa.
+4. **Guardar:** los datos se persisten en Supabase.
+5. **Convertir a Pedido:** desde el detalle, aprobar y registrar el anticipo.
+6. **Registrar Abonos:** en el pedido, abonar montos hasta saldar.
+7. **Ver Mapa:** revisar los marcadores geográficos de instalaciones.
+8. **WhatsApp:** enviar mensaje directo al cliente desde la app.
 
-Después activa Supabase para convertir el flujo en persistencia real.
+## Estructura clave de código
 
-## Qué estudiar primero
-
-1. `lib/main.dart`
-2. `lib/core/config/app_config.dart`
-3. `lib/controllers/app_controller.dart`
-4. `lib/models/incident.dart`
-5. `lib/repositories/incident_repository.dart`
-6. `lib/repositories/demo_incident_repository.dart`
-7. `lib/repositories/supabase_incident_repository.dart`
-8. `lib/screens/incidents/incident_form_screen.dart`
-
-No intentes leer todos los archivos el primer día.
+1. `lib/main.dart` - Punto de entrada, inicialización y proveedores.
+2. `lib/core/config/app_config.dart` - Configuración LIVE/DEMO.
+3. `lib/controllers/` - `app_controller.dart`, `quotations_controller.dart`, `orders_controller.dart`.
+4. `lib/models/` - `quotation.dart`, `order.dart`.
+5. `lib/repositories/` - Repositorios Supabase y Demo en memoria.
+6. `lib/screens/` - Dashboard, Cotizaciones, Pedidos, Mapa y Ajustes.
+7. `lib/services/` - Ubicación, Storage de imágenes, Preferencias y WhatsApp.
