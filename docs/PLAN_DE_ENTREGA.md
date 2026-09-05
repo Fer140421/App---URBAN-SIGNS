@@ -112,7 +112,7 @@ Puede comenzar con P01; el cierre depende de los resultados de la etapa 2.
 Depende del cierre funcional de la etapa 2.
 
 - [x] P14. Dependencias resueltas, análisis sin incidencias y cuatro pruebas aprobadas antes del build; registro textual en `evidencias/VALIDACION_APK_RELEASE.txt`. Capturas pendientes en P17.
-- [x] P15. Build Release exitoso con `--dart-define-from-file=config/live.json`, DEMO desactivado y clave publishable. APK copiado a `APK/UrbanSigns_1.0.0_release.apk`; firma propia Urban Signs verificada con apksigner. Tamaño: 58784000 bytes; minSdk 24, targetSdk 36. Manifest con Internet y consulta HTTPS para WhatsApp.
+- [x] P15. Build Release exitoso con `--dart-define-from-file=config/live.json`, DEMO desactivado y clave publishable. APK copiado a `APK/UrbanSigns_1.0.1_release.apk` (versión 1.0.1+2) y conservado `APK/UrbanSigns_1.0.0_release.apk`; firma propia Urban Signs verificada con apksigner (esquema v2). Tamaño 1.0.1: 58570864 bytes; minSdk 24, targetSdk 36. Manifest con Internet y consulta HTTPS para WhatsApp.
 - [x] P16. APK `APK/UrbanSigns_1.0.0_release.apk` instalado en dispositivo físico/emulador por el usuario, abierto desde el icono y probado en ejecución autónoma sin `flutter run`.
 
 ### Etapa 5. Completar evidencias y entrega
@@ -168,6 +168,7 @@ Incidencia de aprobación (2026-09-05): la captura mostró `LocaleDataException`
 
 | Fecha | Trabajo realizado | Resultado | Próximo paso |
 |---|---|---|---|
+| 2026-09-05 | Pantalla de ajustes simplificada (solo datos de usuario y cerrar sesión); versión actualizada a 1.0.1+2; commit 8b075d4 publicado; nuevo APK Release compilado y verificado en `APK/UrbanSigns_1.0.1_release.apk` | Build exitoso, firma propia v2 verificada; nueva versión lista para instalar | Completar capturas obligatorias de evidencias (P17/E01-E11) y estructurar paquete final (P18-P19) |
 | 2026-09-05 | Usuario instala APK Release en dispositivo y valida apertura desde el icono y flujo autónomo (P16); creado REPOSITORIO.txt (P13); eliminados archivos generados de android/.gradle del índice Git y protegidos en .gitignore (P10) | Puntos oficiales 5, 6, 8 y 9 cumplidos; base lista para empaquetado final | Completar capturas obligatorias de evidencias (P17/E01-E11) y estructurar paquete de entrega (P18-P19) |
 | 2026-09-05 | Manifest revisado, consulta HTTPS agregada, firma propia local creada y APK Release LIVE generado | P14-P15 y punto 5 completados; firma verificada, configuración LIVE comprobada, Supabase Auth HTTP 200; registro textual guardado | Instalar `APK/UrbanSigns_1.0.0_release.apk` y completar punto 6; capturas de build e instalación pendientes |
 | 2026-09-05 | README completado según sección 4 del PDF: instalación desde Git, configuración, flujo, versión, build y limitaciones; validación en copia limpia | Dependencias resueltas, análisis sin incidencias y cuatro pruebas aprobadas; P12 completado. Se corrigió la declaración de clima: servicio presente, sin integración en las pantallas actuales | Publicar README y planificación; continuar con APK, evidencias y demás pendientes |
