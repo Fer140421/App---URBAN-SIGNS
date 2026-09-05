@@ -20,7 +20,7 @@ class AppController extends ChangeNotifier {
   bool _demoSignedIn = false;
   bool _darkMode = false;
   bool _compactCards = false;
-  String _fullName = 'Taller Gráfico Demo';
+  String _fullName = 'Urban Signs Demo';
   String _role = 'admin';
 
   AppConfig get config => _config;
@@ -42,7 +42,7 @@ class AppController extends ChangeNotifier {
   }
 
   String get currentUserEmail {
-    if (demoMode) return 'taller@grafik360.com';
+    if (demoMode) return 'contacto@urbansigns.com';
     return Supabase.instance.client.auth.currentUser?.email ?? 'Sin correo';
   }
 

@@ -11,7 +11,7 @@
       "name": "PF360 - SUPABASE",
       "request": "launch",
       "type": "dart",
-      "toolArgs": ["--dart-define-from-file=config/local.json"]
+      "toolArgs": ["--dart-define-from-file=config/live.json"]
     }
   ]
 }

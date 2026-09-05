@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -20,6 +21,7 @@ import 'services/weather_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('es');
 
   final config = AppConfig.fromEnvironment();
   if (!config.demoMode) {
@@ -53,7 +55,7 @@ Future<void> main() async {
         Provider(create: (_) => WeatherService()),
         Provider(create: (_) => ImageService()),
       ],
-      child: const GrafikApp(),
+      child: const UrbanSignsApp(),
     ),
   );
 }

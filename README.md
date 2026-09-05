@@ -1,75 +1,168 @@
-# GRAFIK 360 PRO · Gestión para Industria Gráfica y Publicidad
+# Urban Signs
 
-Aplicación Flutter profesional para la administración de **Talleres Gráficos, Publicidad Exterior, Banners, Stands, Letreros en Acrílico, Rotulación y Producción**.
+Aplicación móvil para gestionar cotizaciones y pedidos de producción de **Urban Signs**, empresa dedicada a publicidad visual, letreros, rotulación, banners, stands y montaje.
 
----
+## Datos del proyecto
 
-## 🚀 Módulos y Funcionalidades Principales
+Seguimiento de requisitos, estado comprobado y tareas pendientes: [Plan de entrega](docs/PLAN_DE_ENTREGA.md).
 
-1. **Autenticación y Perfiles de Taller**:
-   - Login y Registro con Supabase Auth / Modo Demostración sin conexión.
-   - Roles (`user` / `admin`) y control de acceso por usuario (RLS).
-2. **Módulo Completo de Cotizaciones (CRUD)**:
-   - Registro de cotizaciones para: *Banners y Gigantografías, Stands Publicitarios, Letreros en Acrílico, Rotulación y Vinilos, Letras Corpóreas / Neón LED, etc.*
-   - Cálculo dinámico de área ($m^2$), cantidad, precio unitario y precio total.
-   - Adjunto de boceto / referencia visual (Supabase Storage).
-   - Compartir cotización pre-formateada directamente al cliente por **WhatsApp**.
-3. **Flujo de Cotización a Pedido de Producción**:
-   - Botón **"Aprobar y Crear Pedido"**: al aprobar una cotización, se solicita el anticipo recibido y la fecha comprometida de entrega, generando automáticamente la orden de producción vinculada.
-4. **Módulo Completo de Pedidos de Producción (CRUD)**:
-   - Seguimiento del ciclo de taller: `En Diseño` ➔ `En Producción` ➔ `Listo p/ Entrega` ➔ `Entregado / Instalado`.
-   - Control financiero: Monto Total, Anticipo Pagado y Saldo Pendiente.
-   - Registro de abonos / pagos adicionales.
-   - Notificación de avance al cliente por WhatsApp.
-5. **Georreferenciación y Mapa de Instalaciones**:
-   - Ubicación GPS y mapa interactivo con OpenStreetMap (`flutter_map`) para montaje en sitio.
-6. **Dashboard y Métricas en Tiempo Real**:
-   - Cotizaciones activas, pedidos en taller, entregas pendientes y total de saldos por cobrar.
+- **Proyecto:** Urban Signs
+- **Versión:** 1.0.0+1
+- **Módulo:** Desarrollo de Aplicaciones Móviles
+- **Diplomado:** Desarrollo Web y Aplicaciones Móviles - UAJMS
+- **Gestión:** 2026
+- **Autor:** Daavid Fernando Camata Baspineiro
 
----
+## Problema y objetivo
 
-## 📦 1. Arranque Inmediato (Modo DEMO)
+Urban Signs necesita centralizar la información de sus clientes, cotizaciones y trabajos de producción. El manejo manual puede ocasionar pérdida de datos, cálculos inconsistentes y dificultades para conocer el estado o saldo de un pedido.
 
-Puedes ejecutar la app inmediatamente sin configurar Supabase:
+La aplicación permite registrar cotizaciones, convertirlas en pedidos, controlar anticipos y estados de producción y conservar la información en Supabase. También incorpora imágenes, ubicación de instalación, mapa y comunicación mediante WhatsApp.
+
+## Funcionalidades implementadas
+
+- Registro e inicio de sesión con Supabase Auth.
+- Perfiles de usuario y roles `user` y `admin`.
+- CRUD de cotizaciones y pedidos de producción.
+- Cálculo de área, cantidad, precio unitario y total.
+- Conversión de cotización aprobada en pedido.
+- Control de estados, anticipos, abonos y saldo pendiente.
+- Carga de imágenes en Supabase Storage.
+- Ubicación GPS y mapa con OpenStreetMap.
+- Información meteorológica.
+- Comunicación mediante WhatsApp.
+- Modos DEMO y LIVE.
+- Tema oscuro y tarjetas compactas.
+
+## Tecnologías utilizadas
+
+- Flutter, Dart y Material 3.
+- Provider y GoRouter.
+- Supabase Auth, PostgreSQL, Row Level Security y Storage.
+- Geolocator, Flutter Map y OpenStreetMap.
+- Image Picker, HTTP y URL Launcher.
+- Shared Preferences.
+
+## Requisitos
+
+- Flutter compatible con Dart `>=3.9.0 <4.0.0`.
+- Android Studio o Visual Studio Code.
+- Android SDK y un dispositivo o emulador.
+- Conexión a Internet y proyecto Supabase para el modo LIVE.
 
 ```bash
-flutter run --dart-define=DEMO_MODE=true
+flutter doctor
+flutter --version
+flutter pub get
 ```
 
----
+## Estructura general
 
-## 🗄️ 2. Conectar con Supabase (Modo LIVE)
+```text
+lib/
+|-- controllers/   # Estado y lógica
+|-- core/          # Configuración, rutas, tema y constantes
+|-- models/        # Modelos de datos
+|-- repositories/  # Persistencia DEMO y Supabase
+|-- screens/       # Pantallas
+|-- services/      # Cámara, ubicación, clima y preferencias
+`-- widgets/       # Componentes reutilizables
 
-### Paso A: Ejecutar el Script SQL en Supabase
-1. Ingresa a tu panel de **Supabase** ([supabase.com](https://supabase.com)).
-2. Ve a la sección **SQL Editor** de tu proyecto.
-3. Copia y pega el contenido de [`supabase/01_schema_completo.sql`](file:///C:/sistemas_desarrollo/DIPLOMADO/GEORESCUE_360_PRO_TRABAJO_FINAL_EJEMPLO%20%281%29/PROYECTO_FINAL_EJEMPLO_GEORESCUE_360_PRO/supabase/01_schema_completo.sql) y pulsa **Run**.
-   - Crea las tablas `profiles`, `quotations`, `orders`.
-   - Configura las políticas RLS y triggers automáticos de actualización y nuevo usuario.
-   - Crea el bucket público de almacenamiento `graphic-assets` con políticas de subida.
-4. *(Opcional)* Si deseas cargar datos de prueba reales para la industria gráfica, ejecuta [`supabase/02_datos_demo_opcional.sql`](file:///C:/sistemas_desarrollo/DIPLOMADO/GEORESCUE_360_PRO_TRABAJO_FINAL_EJEMPLO%20%281%29/PROYECTO_FINAL_EJEMPLO_GEORESCUE_360_PRO/supabase/02_datos_demo_opcional.sql) después de haberte registrado.
+supabase/           # Esquema SQL
+test/               # Pruebas automatizadas
+docs/               # Documentación complementaria
+scripts/            # Comandos auxiliares
+config/              # Configuración y plantilla LIVE
+```
 
-### Paso B: Configurar las Credenciales
-1. Edita el archivo `config/live.json` (o crea uno basado en `config/live.example.json`):
+## Instalación y ejecución
+
+### Modo DEMO
+
+No requiere Supabase y conserva los datos solamente en memoria:
+
+```bash
+flutter run --dart-define-from-file=config/demo.json
+```
+
+### Modo LIVE con Supabase
+
+1. Crear un proyecto en Supabase.
+2. Ejecutar `supabase/01_schema_completo.sql` en el SQL Editor.
+3. Copiar `config/live.example.json` como `config/live.json`.
+4. Completar la URL y la publishable/anon key pública.
+
 ```json
 {
   "DEMO_MODE": "false",
-  "SUPABASE_URL": "https://TU_PROYECTO.supabase.co",
-  "SUPABASE_PUBLISHABLE_KEY": "TU_PUBLISHABLE_KEY_ANON"
+  "SUPABASE_URL": "https://TU-PROYECTO.supabase.co",
+  "SUPABASE_PUBLISHABLE_KEY": "TU-PUBLISHABLE-KEY"
 }
 ```
 
-### Paso C: Ejecutar en Modo LIVE
 ```bash
 flutter run --dart-define-from-file=config/live.json
 ```
 
----
+`config/live.json` está excluido del repositorio. Nunca se debe incluir una secret/service-role key, contraseña o token privado.
 
-## 🧪 Pruebas Automatizadas y Calidad de Código
+## Comprobaciones
 
 ```bash
+flutter clean
+flutter pub get
 flutter analyze
 flutter test
 ```
-*(Ambos pasan al 100% con cero errores y advertencias).*
+
+## Generación del APK Release
+
+```bash
+flutter build apk --release --dart-define-from-file=config/live.json
+```
+
+El resultado se genera en:
+
+```text
+build/app/outputs/flutter-apk/app-release.apk
+```
+
+Para la entrega debe copiarse como:
+
+```text
+APK/UrbanSigns_1.0.0_release.apk
+```
+
+Debe instalarse y probarse desde el icono del dispositivo, sin depender de `flutter run`.
+
+## Flujo principal de verificación
+
+1. Registrar un usuario e iniciar sesión.
+2. Crear, consultar, editar y eliminar una cotización.
+3. Aprobar una cotización y convertirla en pedido.
+4. Editar el pedido, cambiar su estado y registrar un abono.
+5. Adjuntar una imagen y comprobarla en Supabase Storage.
+6. Probar GPS, mapa y WhatsApp.
+7. Reiniciar la aplicación y confirmar la persistencia.
+
+## Limitaciones conocidas
+
+- El modo DEMO pierde los cambios al reiniciar.
+- El modo LIVE depende de Internet y de Supabase.
+- WhatsApp requiere una aplicación o navegador compatible.
+- GPS, cámara y galería requieren permisos del usuario.
+- La conversión a pedido ejecuta dos operaciones consecutivas; ante un corte de conexión debe comprobarse el resultado.
+- No incluye notificaciones push ni funcionamiento completo sin conexión.
+- Las pruebas actuales cubren modelos y repositorios DEMO; faltan pruebas de integración LIVE.
+
+## Seguridad
+
+- Las tablas utilizan Row Level Security.
+- Las operaciones requieren autenticación.
+- Storage organiza archivos por usuario.
+- Credenciales locales, keystores y propiedades de firma están excluidos mediante `.gitignore`.
+- Las evidencias no deben mostrar información personal real.
+
+## Documentación adicional
+
+`docs/` contiene manuales de instalación, uso, arquitectura, pruebas y generación Android. `evidencias/` está destinada a las capturas de la entrega final.

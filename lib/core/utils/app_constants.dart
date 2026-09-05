@@ -1,5 +1,5 @@
 class AppConstants {
-  static const appName = 'GRAFIK 360 PRO';
+  static const appName = 'URBAN SIGNS';
   static const appSubtitle = 'Industria Gráfica & Soluciones Publicitarias';
   static const osmUrl = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
   static const osmCopyrightUrl = 'https://www.openstreetmap.org/copyright';

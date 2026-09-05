@@ -12,7 +12,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev, _In_ wch
   FlutterWindow window(project);
   Win32Window::Point origin(10, 10);
   Win32Window::Size size(430, 760);
-  if (!window.Create(L"Navegación Flutter · UAJMS", origin, size)) return EXIT_FAILURE;
+  if (!window.Create(L"Urban Signs", origin, size)) return EXIT_FAILURE;
   window.SetQuitOnClose(true);
   ::MSG msg;
   while (::GetMessage(&msg, nullptr, 0, 0)) { ::TranslateMessage(&msg); ::DispatchMessage(&msg); }

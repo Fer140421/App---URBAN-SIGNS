@@ -6,8 +6,8 @@ import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'core/utils/app_constants.dart';
 
-class GrafikApp extends StatelessWidget {
-  const GrafikApp({super.key});
+class UrbanSignsApp extends StatelessWidget {
+  const UrbanSignsApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,5 +22,3 @@ class GrafikApp extends StatelessWidget {
     );
   }
 }
-
-typedef GeoRescueApp = GrafikApp;

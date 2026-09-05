@@ -3,8 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../controllers/app_controller.dart';
-import '../../controllers/orders_controller.dart';
-import '../../controllers/quotations_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -54,10 +52,6 @@ class _LoginScreenState extends State<LoginScreen> {
         await app.signIn(email: _email.text, password: _password.text);
       }
       if (!mounted) return;
-      await Future.wait([
-        context.read<QuotationsController>().load(),
-        context.read<OrdersController>().load(),
-      ]);
       if (mounted) context.go('/');
     } catch (e) {
       if (mounted) {
@@ -296,7 +290,7 @@ class _BrandHeader extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         const Text(
-          'GRAFIK 360 PRO',
+          'URBAN SIGNS',
           style: TextStyle(
             color: Colors.white,
             fontSize: 24,

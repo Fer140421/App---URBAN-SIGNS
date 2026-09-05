@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../controllers/orders_controller.dart';
+import '../../controllers/quotations_controller.dart';
 
 import '../home/dashboard_screen.dart';
 import '../map/map_screen.dart';
@@ -22,6 +26,11 @@ class _MainShellState extends State<MainShell> {
   void initState() {
     super.initState();
     _index = widget.initialIndex;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      context.read<QuotationsController>().load();
+      context.read<OrdersController>().load();
+    });
   }
 
   static const _screens = <Widget>[
