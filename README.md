@@ -7,14 +7,14 @@ Aplicación móvil para gestionar cotizaciones y pedidos de producción de **Urb
 Seguimiento de requisitos, estado comprobado y tareas pendientes: [Plan de entrega](docs/PLAN_DE_ENTREGA.md).
 
 - **Proyecto:** Urban Signs
-- **Versión:** 1.0.0+1
+- **Versión:** 1.0.1+2
 - **Módulo:** Desarrollo de Aplicaciones Móviles
 - **Diplomado:** Desarrollo Web y Aplicaciones Móviles - UAJMS
 - **Gestión:** 2026
 - **Autor:** Daavid Fernando Camata Baspineiro
 - **Repositorio:** [App - URBAN SIGNS](https://github.com/Fer140421/App---URBAN-SIGNS)
 
-La versión del código es `1.0.0+1`, según `pubspec.yaml`. El APK Release LIVE fue generado y su firma verificada el 5 de septiembre de 2026: `APK/UrbanSigns_1.0.0_release.apk`. Su instalación y prueba en dispositivo continúan pendientes en el plan de entrega.
+La versión del código es `1.0.1+2`, según `pubspec.yaml`.
 
 ## Problema y objetivo
 

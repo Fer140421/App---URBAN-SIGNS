@@ -66,30 +66,7 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 14),
-
-          Card(
-            child: Column(
-              children: [
-                SwitchListTile(
-                  value: app.darkMode,
-                  onChanged: app.setDarkMode,
-                  secondary: const Icon(Icons.dark_mode_outlined),
-                  title: const Text('Tema oscuro'),
-                  subtitle: const Text('Cambiar la apariencia de la aplicación.'),
-                ),
-                const Divider(height: 1),
-                SwitchListTile(
-                  value: app.compactCards,
-                  onChanged: app.setCompactCards,
-                  secondary: const Icon(Icons.view_agenda_outlined),
-                  title: const Text('Tarjetas compactas'),
-                  subtitle: const Text('Mostrar cotizaciones y pedidos con menos espacio.'),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 20),
 
           OutlinedButton.icon(
             onPressed: () async {
