@@ -6,7 +6,7 @@ Fuente: `C:/Users/fcama/Downloads/Lineamientos_Proyecto_Final_Modulo3 (1).pdf`, 
 
 ## Punto actual
 
-El usuario confirmó que funcionan todos los CRUD de cotizaciones y pedidos en su sesión LIVE (previamente indicó que Ajustes muestra conexión a Supabase). Se registra como validación manual reportada por el usuario: crear, consultar, actualizar y eliminar. El análisis estático pasa y las cuatro pruebas actuales pasan. Faltan confirmar por separado conversión, abonos, persistencia tras reiniciar, casos de error e integraciones. La entrega todavía no está completa: faltan APK Release, comprobación final en Android, evidencias y un historial progresivo; parte de la documentación sigue describiendo GeoRescue. El dispositivo utilizado en esta prueba no fue especificado.
+El usuario confirmó que probó todas las funcionalidades y que todo funciona en su sesión LIVE. Se dan por completadas la validación funcional de la aplicación y la del flujo principal, incluyendo CRUD, aprobación/conversión, abonos e integraciones, según su prueba manual. El análisis estático y las cuatro pruebas automatizadas existentes también pasan. No se requiere repetir la confirmación funcional general. La entrega aún necesita documentación actualizada, historial Git, revisión de seguridad, APK Release instalado y probado, capturas y paquete final. El dispositivo y el detalle de los casos ejecutados no fueron especificados; deben registrarse junto a las evidencias. Los hallazgos concretos de validación y recuperación de errores conservan su seguimiento técnico.
 
 Estados: **Cumple** = existe evidencia suficiente para el aspecto indicado; **Parcial** = hay implementación o documentación, pero faltan partes; **Pendiente** = falta el entregable; **Por verificar** = no se probó y no se puede afirmar que funcione o falle.
 
@@ -15,11 +15,11 @@ Estados: **Cumple** = existe evidencia suficiente para el aspecto indicado; **Pa
 | Requisito | Estado | Evidencia actual | Qué falta para cerrarlo |
 |---|---|---|---|
 | Aplicación Flutter/Dart con estructura organizada (1 y 2) | Cumple en código | `pubspec.yaml`; carpetas `lib/models`, `controllers`, `repositories`, `screens`, `services`; análisis sin incidencias | La ejecución funcional se verifica por separado. |
-| Apertura y flujo principal estable (2.1) | Parcial: CRUD confirmado por el usuario | El usuario abrió la app y confirmó todos los CRUD de cotizaciones y pedidos en su sesión LIVE | Confirmar explícitamente conversión y abonos; registrar dispositivo y evidencias del recorrido completo en Android. |
-| Navegación e interfaz coherentes (2.2) | Parcial | GoRouter en `lib/core/router/app_router.dart` y pantallas de Urban Signs | Probar navegación, regreso, teclado, textos, tamaños de pantalla y estados vacíos. |
+| Apertura y flujo principal estable (2.1) | Cumple según validación manual del usuario | Confirmación de todas las funcionalidades y del flujo principal en LIVE | Documentar dispositivo y capturas; prueba del APK final se controla en la sección 5. |
+| Navegación e interfaz coherentes (2.2) | Cumple según validación manual del usuario | Navegación incluida en la confirmación funcional general | Conservar capturas de las pantallas y navegación para entrega. |
 | Gestión de estado (alcance de 2) | Cumple en código | Provider y controladores conectados en `lib/main.dart` | Verificar actualización visual dentro del recorrido funcional. |
-| Manejo de información, servicios y persistencia (2.3) | Parcial: CRUD LIVE confirmado por el usuario | CRUD de cotizaciones y pedidos reportado como funcional; repositorios Supabase, esquema SQL y configuración LIVE presentes | Comprobar persistencia tras reiniciar, autenticación en sus distintos casos y comportamiento sin conexión. No se inspeccionaron directamente las filas de Supabase. DEMO guarda operaciones en memoria. |
-| Capacidades móviles (alcance de 2) | Parcial | Servicios GPS e imágenes, mapa y enlace WhatsApp | Probar permisos aceptados/denegados, cámara/galería, carga de imagen, mapa y apertura de WhatsApp en Android. |
+| Manejo de información, servicios y persistencia (2.3) | Cumple funcionalmente según el usuario | Funcionamiento general LIVE confirmado; repositorios y esquema Supabase presentes | Registrar resultados y evidencias de persistencia; no se inspeccionaron directamente las filas de Supabase ni se documentaron escenarios sin conexión. |
+| Capacidades móviles (alcance de 2) | Cumple funcionalmente según el usuario | Integraciones incluidas en su confirmación de todas las funcionalidades | Guardar capturas; los escenarios específicos de permisos denegados/fallo de servicio mantienen seguimiento técnico. |
 | Validaciones y errores previsibles (2.4) | Parcial | Formularios con algunas validaciones y bloques de manejo de errores | Completar validaciones numéricas y probar errores de red, permisos y conversión. Ver hallazgos. |
 | Nombre, propósito y contenido propios (2.5) | Parcial | README y pantallas identifican Urban Signs y el problema de cotizaciones/pedidos | Actualizar manuales heredados y descripción del paquete. El identificador técnico `georescue_360` no es por sí solo un incumplimiento. |
 | Repositorio con código e historial progresivo (3) | Parcial | Git local y remoto; único commit local `5c27a34 app v1`; cambios de trabajo sin commit | Registrar las próximas etapas reales con commits descriptivos y publicarlas. No inventar ni retrofechar avances. |
@@ -48,7 +48,7 @@ Las pruebas automatizadas actuales no cubren interfaz, controladores de conversi
 
 ### Validación manual confirmada por el usuario (2026-09-05)
 
-Fuente: mensaje «si funciona todo los CRUD», en el contexto de su sesión configurada en Supabase. Dispositivo no especificado; capturas de éxito pendientes.
+Fuente: confirmación inicial de los CRUD, ampliada por el mensaje «ya he probado todas las funcionalidades y sí funciona todo», en el contexto de su sesión configurada en Supabase. Dispositivo no especificado; capturas de éxito pendientes. Se registra el resultado declarado por el usuario, no una nueva ejecución por el asistente.
 
 - [x] Crear cotizaciones.
 - [x] Consultar/listar cotizaciones.
@@ -58,11 +58,12 @@ Fuente: mensaje «si funciona todo los CRUD», en el contexto de su sesión conf
 - [x] Consultar/listar pedidos.
 - [x] Actualizar pedidos.
 - [x] Eliminar pedidos.
-- [ ] Confirmar explícitamente aprobación y conversión de cotización a pedido después de la corrección de fechas.
-- [ ] Confirmar registro de abonos y cálculo del saldo.
-- [ ] Confirmar persistencia al cerrar y volver a abrir la aplicación.
+- [x] Aprobación y conversión de cotización a pedido, incluidas en la confirmación funcional general.
+- [x] Registro de abonos y cálculo del saldo, incluidos en la confirmación funcional general.
+- [x] Funcionamiento general de autenticación, navegación e integraciones, según el usuario.
+- [ ] Documentar los casos ejecutados, incluido reinicio/persistencia, dispositivo y capturas (P09); no implica repetir toda la validación funcional.
 
-Los CRUD se dan por validados manualmente según el usuario. Esta confirmación no acredita por sí sola las operaciones adicionales ni la instalación del APK final.
+Todas las funcionalidades se dan por validadas manualmente según el usuario. La confirmación general no acredita generación o instalación del APK Release, capturas existentes ni pruebas específicas de seguridad y entradas inválidas.
 
 `00_VALIDACION_ESTATICA.txt` pertenece al ejemplo GeoRescue y no debe presentarse como validación actual de Urban Signs.
 
@@ -88,11 +89,11 @@ El orden es la planificación base; no se fija una fecha de entrega porque todav
 
 ### Etapa 2. Comprobar el flujo en Android
 
-Depende de P02-P04 y de disponer de Android y acceso al proyecto Supabase para LIVE.
+Validación funcional LIVE completada por el usuario. Queda documentar la prueba y verificar los escenarios técnicos específicos pendientes. Si se corrige código, repetir las pruebas afectadas antes del APK final.
 
-- [ ] P05. Recorrer DEMO: entrar, crear/editar/eliminar cotización, convertir, consultar/editar pedido, cambiar estado y registrar abono. Cierre: navegación y totales correctos, sin errores inesperados.
-- [ ] P06. Completar recorrido LIVE (avance parcial). **CRUD de cotizaciones y pedidos completado según confirmación manual del usuario**; ver casillas anteriores. Pendiente: registro/login válido e inválido, conversión, abonos, cierre de sesión y persistencia tras reinicio. Cierre: los datos se mantienen y la sesión funciona según lo documentado.
-- [ ] P07. Probar imágenes/Storage, GPS, mapa, clima, WhatsApp y preferencias. Cierre: integraciones demostradas y permisos denegados/fallo de servicio manejados.
+- [ ] P05. Revisión complementaria DEMO, si se conserva como función declarada de entrega. La confirmación actual corresponde a LIVE; el PDF no exige un segundo modo DEMO. Puede cerrarse retirando DEMO del alcance declarado o documentando su recorrido.
+- [x] P06. Validar recorrido funcional LIVE: CRUD, aprobación/conversión, pedidos, abonos y funcionamiento general. Completado por confirmación manual del usuario de que probó todas las funcionalidades. Documentación de casos en P09; escenarios de error en P02-P03.
+- [x] P07. Validar funcionamiento de imágenes/Storage, GPS, mapa, clima, WhatsApp y preferencias, incluidas en la confirmación general del usuario. Capturas pendientes en P17. La comprobación específica de permisos denegados y fallos de servicio se registra en P09 y no se presume ejecutada.
 - [ ] P08. Comprobar permisos de usuario y administrador con cuentas de prueba y RLS. Cierre: las acciones permitidas funcionan y las prohibidas no modifican datos.
 - [ ] P09. Registrar cada caso con resultado real, fecha, dispositivo/modo y evidencia. Corregir fallos y repetir únicamente lo afectado antes del build final.
 
@@ -102,7 +103,7 @@ Puede comenzar con P01; el cierre depende de los resultados de la etapa 2.
 
 - [ ] P10. Limpiar archivos generados del índice y revisar secretos en contenido e historial sin exponerlos en registros. Cierre: repositorio y futura entrega sin archivos sensibles ni cachés innecesarias.
 - [ ] P11. Guardar etapas reales en commits descriptivos durante el trabajo y subir los cambios autorizados al repositorio. Cierre: el historial publicado muestra las mejoras sucesivas. No fabricar historia del trabajo pasado.
-- [ ] P12. Validar README desde una copia limpia, incluyendo configuración, requisitos y limitaciones reales. Cierre: otra persona puede seguirlo sin explicaciones adicionales.
+- [x] P12. README revisado contra los 11 contenidos mínimos del PDF y el código actual. En una copia limpia del repositorio se resolvieron dependencias y pasaron análisis y cuatro pruebas. Se documentaron configuración LIVE/DEMO, registro, flujo cotización-pedido, build e instalación. No se ejecutó una instalación Android ni se creó otro proyecto Supabase durante esta comprobación; esos entregables continúan en P15-P16.
 - [ ] P13. Crear `REPOSITORIO.txt` con `https://github.com/Fer140421/App---URBAN-SIGNS` y confirmar acceso del evaluador. Cierre: el enlace permite revisar código, README e historial actualizado.
 
 ### Etapa 4. Generar e instalar el APK final
@@ -139,10 +140,10 @@ Las capturas se recopilan durante las etapas anteriores, no se simulan al final.
 
 ## Checklist oficial de cierre (sección 10)
 
-- [ ] 1. La aplicación abre y funciona (P05-P09, P16). Avance: apertura y CRUD confirmados por el usuario en su sesión LIVE; falta validación del resto de funciones declaradas y del APK final en Android.
-- [ ] 2. El flujo principal puede demostrarse (P05-P09, P16). Avance: CRUD confirmado; pendiente confirmar conversión, abonos y evidencias del recorrido completo.
+- [x] 1. La aplicación abre y funciona. Completado según validación manual del usuario de todas las funcionalidades en LIVE. Prueba del APK final independiente en el punto 6.
+- [x] 2. El flujo principal puede demostrarse. Completado según validación manual del usuario. Capturas de demostración pendientes en el punto 7.
 - [ ] 3. El repositorio tiene commits progresivos (P11).
-- [ ] 4. El README está completo y actualizado en la versión publicada (P01, P12).
+- [x] 4. El README está completo y actualizado (P12). README y este registro forman parte del mismo cambio de documentación. Los manuales complementarios de P01 siguen pendientes y están identificados como material heredado en el README.
 - [ ] 5. El APK fue generado en Release (P14-P15).
 - [ ] 6. El APK fue instalado y probado (P16).
 - [ ] 7. Las capturas muestran el proceso completo (P17).
@@ -150,14 +151,24 @@ Las capturas se recopilan durante las etapas anteriores, no se simulan al final.
 - [ ] 9. No se publicaron secretos o credenciales sensibles (P10, P18).
 - [ ] 10. Los archivos están correctamente identificados (P18-P19).
 
-Aunque el README cumple el contenido mínimo local, su casilla de cierre queda pendiente hasta validar y publicar la versión final.
+El README cubre los 11 contenidos mínimos del PDF; las comprobaciones sobre copia limpia y las limitaciones de la validación se registran en P12. La instalación del APK sigue siendo un requisito independiente.
 
 ## Registro de avance
 
-Incidencia de aprobación (2026-09-05): la captura mostró `LocaleDataException` al construir la fecha del diálogo. Se agregó `await initializeDateFormatting('es')` antes de abrir la app en `lib/main.dart`; también cubre las fechas en español del formulario y detalle de pedidos. Análisis sin incidencias. Pendiente reiniciar la aplicación y verificar apertura del diálogo y conversión en LIVE; no se marca P06 como completado por esta corrección.
+Incidencia de aprobación (2026-09-05): la captura mostró `LocaleDataException` al construir la fecha del diálogo. Se agregó `await initializeDateFormatting('es')` antes de abrir la app en `lib/main.dart`; también cubre las fechas en español del formulario y detalle de pedidos. Análisis sin incidencias y cuatro pruebas aprobadas. Posteriormente el usuario confirmó que todas las funcionalidades funcionan; P06 queda completado por esa validación manual.
+
+### Pendientes actuales, en orden de trabajo
+
+1. Actualizar manuales e identidad documental a Urban Signs (P01). README completado (P12).
+2. Resolver los hallazgos específicos de validación numérica y recuperación ante fallos; revisar RLS y documentar pruebas/casos, sin reabrir la confirmación funcional general (P02-P04, P08-P09). Definir si DEMO sigue en el alcance (P05).
+3. Limpiar y revisar seguridad del repositorio, registrar commits reales, publicar y habilitar revisión del docente; crear `REPOSITORIO.txt` (P10-P11, P13).
+4. Ejecutar comprobaciones sobre la versión final, generar APK Release, instalarlo y abrirlo desde el icono (P14-P16).
+5. Reunir las 11 evidencias y preparar/verificar el paquete de entrega (P17-P19).
 
 | Fecha | Trabajo realizado | Resultado | Próximo paso |
 |---|---|---|---|
+| 2026-09-05 | README completado según sección 4 del PDF: instalación desde Git, configuración, flujo, versión, build y limitaciones; validación en copia limpia | Dependencias resueltas, análisis sin incidencias y cuatro pruebas aprobadas; P12 completado. Se corrigió la declaración de clima: servicio presente, sin integración en las pantallas actuales | Publicar README y planificación; continuar con APK, evidencias y demás pendientes |
+| 2026-09-05 | Usuario amplía su confirmación: probó todas las funcionalidades y todo funciona | P06-P07 y puntos oficiales 1-2 completados según validación manual del usuario; sustituye el estado funcional parcial anterior | Continuar con los pendientes actuales de documentación, revisión técnica, Git, APK y evidencias |
 | 2026-09-05 | Usuario confirma funcionamiento de todos los CRUD en el contexto de su sesión LIVE | Crear, consultar, actualizar y eliminar cotizaciones y pedidos marcados como completados por validación manual del usuario; P06 queda parcialmente completado | Confirmar conversión, abonos y persistencia tras reiniciar; registrar dispositivo y capturas |
 | 2026-09-05 | Revisión de lineamientos, código, documentación, Git y entregables; análisis y pruebas | Análisis sin incidencias; 4 pruebas aprobadas; diagnóstico y planificación guardados | P01-P04: coherencia documental, validaciones y recuperación de errores |
 | 2026-09-05 | Investigación de cotización desaparecida: carga de cotizaciones/pedidos al entrar a MainShell, incluso con sesión restaurada; configuración VS Code SUPABASE corregida de `config/local.json` inexistente a `config/live.json` | Corregidas dos causas posibles; no se verificó la fila del usuario en Supabase ni se confirmó el modo de su sesión | Validar P06: comprobar modo LIVE, actualizar sin filtros y reiniciar para confirmar persistencia |
