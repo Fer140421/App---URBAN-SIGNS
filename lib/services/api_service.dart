@@ -46,6 +46,23 @@ class ApiService {
     return headers;
   }
 
+  String _decodeBody(http.Response response) {
+    try {
+      return utf8.decode(response.bodyBytes);
+    } catch (_) {
+      try {
+        return utf8.decode(response.bodyBytes, allowMalformed: true);
+      } catch (_) {
+        return latin1.decode(response.bodyBytes);
+      }
+    }
+  }
+
+  dynamic _decodeJson(http.Response response) {
+    final bodyString = _decodeBody(response);
+    return jsonDecode(bodyString);
+  }
+
   Future<Map<String, dynamic>> login({
     required String userAcces,
     required String passwordAcces,
@@ -76,7 +93,7 @@ class ApiService {
     );
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+      final data = _decodeJson(response) as Map<String, dynamic>;
       
       // Extraer token
       String? receivedToken = data['token']?.toString();
@@ -108,7 +125,7 @@ class ApiService {
       return data;
     } else {
       try {
-        final error = jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+        final error = _decodeJson(response) as Map<String, dynamic>;
         throw Exception(error['message'] ?? 'Credenciales incorrectas');
       } catch (e) {
         if (e is Exception && !e.toString().contains('FormatException')) rethrow;
@@ -131,7 +148,7 @@ class ApiService {
     final response = await http.get(url, headers: _headers());
 
     if (response.statusCode == 200) {
-      final list = jsonDecode(utf8.decode(response.bodyBytes)) as List<dynamic>;
+      final list = _decodeJson(response) as List<dynamic>;
       return list.map((item) => Pedido.fromMap(item as Map<String, dynamic>)).toList();
     } else {
       throw Exception('Error al obtener pedidos listos para entrega: ${response.statusCode}');
@@ -150,7 +167,7 @@ class ApiService {
     final response = await http.get(url, headers: _headers());
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+      final data = _decodeJson(response) as Map<String, dynamic>;
       final content = data['content'] as List<dynamic>? ?? [];
       return content.map((item) => Pedido.fromMap(item as Map<String, dynamic>)).toList();
     } else {
@@ -168,7 +185,7 @@ class ApiService {
     final response = await http.get(url, headers: _headers());
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+      final data = _decodeJson(response) as Map<String, dynamic>;
       return Pedido.fromMap(data);
     } else {
       throw Exception('Error al obtener detalle del pedido: ${response.statusCode}');
@@ -229,10 +246,10 @@ class ApiService {
     final response = await http.Response.fromStream(streamedResponse);
 
     if (response.statusCode == 200) {
-      return jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+      return _decodeJson(response) as Map<String, dynamic>;
     } else {
       try {
-        final err = jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+        final err = _decodeJson(response) as Map<String, dynamic>;
         throw Exception(err['message'] ?? 'Error al registrar entrega');
       } catch (e) {
         if (e is Exception && !e.toString().contains('FormatException')) rethrow;
