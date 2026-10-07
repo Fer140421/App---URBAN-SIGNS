@@ -1,7 +1,7 @@
-name: georescue_360
+name: urban_signs_app
 publish_to: "none"
-description: Urban Signs - Sistema movil de gestion comercial para carteleria y gigantografias (Diplomado UAJMS).
-version: 1.0.1+2
+description: Urban Signs - App Móvil de Montajes, Taller y Entregas en Campo con Evidencia Fotográfica y GPS.
+version: 1.0.0+1
 
 environment:
   sdk: ">=3.9.0 <4.0.0"
@@ -12,7 +12,6 @@ dependencies:
   cupertino_icons: ^1.0.8
   provider: ^6.1.5+1
   go_router: ^17.2.3
-  supabase_flutter: ^2.17.2
   shared_preferences: ^2.5.5
   geolocator: ^14.0.3
   flutter_map: ^8.3.1

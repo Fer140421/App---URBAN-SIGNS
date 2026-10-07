@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../controllers/orders_controller.dart';
-import '../../controllers/quotations_controller.dart';
-
-import '../home/dashboard_screen.dart';
+import '../../controllers/pedidos_controller.dart';
 import '../map/map_screen.dart';
-import '../orders/orders_screen.dart';
-import '../quotations/quotations_screen.dart';
+import '../pedidos/pedidos_screen.dart';
 import '../settings/settings_screen.dart';
 
 class MainShell extends StatefulWidget {
@@ -28,48 +24,45 @@ class _MainShellState extends State<MainShell> {
     _index = widget.initialIndex;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
-      context.read<QuotationsController>().load();
-      context.read<OrdersController>().load();
+      context.read<PedidosController>().load();
     });
   }
 
   static const _screens = <Widget>[
-    DashboardScreen(),
-    QuotationsScreen(),
-    OrdersScreen(),
+    PedidosScreen(),
     MapScreen(),
     SettingsScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
+    final pedidosCtrl = context.watch<PedidosController>();
+
     return Scaffold(
       body: IndexedStack(index: _index, children: _screens),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _index,
         onDestinationSelected: (value) => setState(() => _index = value),
-        destinations: const [
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.dashboard_outlined),
-            selectedIcon: Icon(Icons.dashboard),
-            label: 'Inicio',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.request_quote_outlined),
-            selectedIcon: Icon(Icons.request_quote),
-            label: 'Cotizaciones',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.precision_manufacturing_outlined),
-            selectedIcon: Icon(Icons.precision_manufacturing),
+            icon: Badge(
+              isLabelVisible: pedidosCtrl.readyCount > 0,
+              label: Text('${pedidosCtrl.readyCount}'),
+              child: const Icon(Icons.precision_manufacturing_outlined),
+            ),
+            selectedIcon: Badge(
+              isLabelVisible: pedidosCtrl.readyCount > 0,
+              label: Text('${pedidosCtrl.readyCount}'),
+              child: const Icon(Icons.precision_manufacturing),
+            ),
             label: 'Pedidos',
           ),
-          NavigationDestination(
+          const NavigationDestination(
             icon: Icon(Icons.map_outlined),
             selectedIcon: Icon(Icons.map),
             label: 'Mapa',
           ),
-          NavigationDestination(
+          const NavigationDestination(
             icon: Icon(Icons.settings_outlined),
             selectedIcon: Icon(Icons.settings),
             label: 'Ajustes',
