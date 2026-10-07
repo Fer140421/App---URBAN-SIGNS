@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../controllers/app_controller.dart';
+import '../../controllers/pedidos_controller.dart';
+import '../../core/config/app_config.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -15,8 +17,8 @@ class _LoginScreenState extends State<LoginScreen> {
   static const black = Color(0xFF101313);
   final _formKey = GlobalKey<FormState>();
   final _name = TextEditingController();
-  final _email = TextEditingController();
-  final _password = TextEditingController();
+  final _email = TextEditingController(text: 'taller@urbansigns.com');
+  final _password = TextEditingController(text: '12345');
   bool _register = false;
   bool _loading = false;
   bool _hidePassword = true;
@@ -27,6 +29,148 @@ class _LoginScreenState extends State<LoginScreen> {
     _email.dispose();
     _password.dispose();
     super.dispose();
+  }
+
+  void _mostrarConfiguracionServidor(BuildContext context) {
+    final app = context.read<AppController>();
+    final urlCtrl = TextEditingController(text: app.baseUrl);
+    bool testing = false;
+    String? testResult;
+    bool testOk = false;
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: const Color(0xFF181C1D),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setSheetState) => Padding(
+          padding: EdgeInsets.only(
+            left: 20,
+            right: 20,
+            top: 20,
+            bottom: MediaQuery.of(ctx).viewInsets.bottom + 24,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Configurar Servidor Backend',
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.close, color: Colors.grey),
+                    onPressed: () => Navigator.pop(ctx),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: urlCtrl,
+                style: const TextStyle(color: Colors.white, fontSize: 13),
+                decoration: _decoration('http://localhost:8080', Icons.link),
+              ),
+              const SizedBox(height: 12),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  ActionChip(
+                    label: const Text('Local PC (localhost:8080)', style: TextStyle(fontSize: 11)),
+                    onPressed: () {
+                      urlCtrl.text = AppConfig.defaultLocalWeb;
+                      setSheetState(() => testResult = null);
+                    },
+                  ),
+                  ActionChip(
+                    label: const Text('Emulador Android (10.0.2.2:8080)', style: TextStyle(fontSize: 11)),
+                    onPressed: () {
+                      urlCtrl.text = AppConfig.defaultLocalAndroid;
+                      setSheetState(() => testResult = null);
+                    },
+                  ),
+                  ActionChip(
+                    label: const Text('Producción (Render)', style: TextStyle(fontSize: 11)),
+                    onPressed: () {
+                      urlCtrl.text = AppConfig.defaultProduction;
+                      setSheetState(() => testResult = null);
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(height: 14),
+              if (testResult != null)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Text(
+                    testResult!,
+                    style: TextStyle(
+                      color: testOk ? Colors.greenAccent : Colors.redAccent,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: testing
+                          ? null
+                          : () async {
+                              setSheetState(() {
+                                testing = true;
+                                testResult = null;
+                              });
+                              await app.setBaseUrl(urlCtrl.text.trim());
+                              final ok = await app.checkConnection();
+                              setSheetState(() {
+                                testing = false;
+                                testOk = ok;
+                                testResult = ok
+                                    ? '¡Conexión exitosa con el servidor!'
+                                    : 'No se pudo conectar a la URL especificada.';
+                              });
+                            },
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: yellow,
+                        side: const BorderSide(color: yellow),
+                      ),
+                      child: testing
+                          ? const SizedBox(
+                              width: 16,
+                              height: 16,
+                              child: CircularProgressIndicator(strokeWidth: 2, color: yellow),
+                            )
+                          : const Text('Probar Conexión'),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: FilledButton(
+                      onPressed: () async {
+                        await app.setBaseUrl(urlCtrl.text.trim());
+                        if (ctx.mounted) Navigator.pop(ctx);
+                      },
+                      style: FilledButton.styleFrom(
+                        backgroundColor: yellow,
+                        foregroundColor: Colors.black,
+                      ),
+                      child: const Text('Guardar'),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Future<void> _submit() async {
@@ -52,11 +196,20 @@ class _LoginScreenState extends State<LoginScreen> {
         await app.signIn(email: _email.text, password: _password.text);
       }
       if (!mounted) return;
+      context.read<PedidosController>().load();
       if (mounted) context.go('/');
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('No fue posible continuar: $e')),
+          SnackBar(
+            content: Text('Error de conexión o credenciales: $e\n(URL: ${app.baseUrl})'),
+            duration: const Duration(seconds: 5),
+            action: SnackBarAction(
+              label: 'Cambiar URL',
+              textColor: yellow,
+              onPressed: () => _mostrarConfiguracionServidor(context),
+            ),
+          ),
         );
       }
     } finally {
@@ -167,10 +320,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             controller: _email,
                             keyboardType: TextInputType.emailAddress,
                             style: const TextStyle(color: Colors.white, fontSize: 13),
-                            decoration: _decoration('ejemplo@taller.com', Icons.email_outlined),
-                            validator: (v) => app.demoMode || (v ?? '').trim().contains('@')
-                                ? null
-                                : 'Ingresa un correo válido.',
+                            decoration: _decoration('taller@urbansigns.com', Icons.email_outlined),
+                            validator: (v) {
+                              final val = (v ?? '').trim();
+                              if (val.isEmpty) return 'Campo obligatorio.';
+                              if (val.length < 3) return 'Mínimo 3 caracteres.';
+                              return null;
+                            },
                           ),
                           const SizedBox(height: 17),
                           const _FieldLabel('Contraseña'),
@@ -192,9 +348,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
-                            validator: (v) => app.demoMode || (v ?? '').length >= 6
-                                ? null
-                                : 'Mínimo 6 caracteres.',
+                            validator: (v) {
+                              final val = v ?? '';
+                              if (val.isEmpty) return 'Campo obligatorio.';
+                              if (val.length < 3) return 'Mínimo 3 caracteres.';
+                              return null;
+                            },
                           ),
                           const SizedBox(height: 28),
                           SizedBox(
@@ -239,6 +398,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ]),
+              ),
+            ),
+          ),
+        ),
+        SafeArea(
+          child: Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: IconButton(
+                icon: const Icon(Icons.settings_outlined, color: Color(0xFFAAB0B0)),
+                tooltip: 'Configurar Servidor Backend',
+                onPressed: () => _mostrarConfiguracionServidor(context),
               ),
             ),
           ),
